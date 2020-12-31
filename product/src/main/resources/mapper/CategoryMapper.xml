@@ -4,18 +4,22 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.shop.product.mapper.CategoryMapper">
 
-    <select id="getCategoryListByParentId" resultType="com.bwf.shop.product.bean.po.Category">
+    <select id="getCategoryListByPid" resultType="com.bwf.shop.product.bean.po.Category">
         select *
             from `category`
             where
                 <choose>
-                    <when test="parent_id == null">
-                        parent_id is null
+                    <when test="pid == null">
+                        cate_parentid is null
                     </when>
                     <otherwise>
-                        parent_id = #{parent_id}
+                        cate_parentid = #{parent_id}
                     </otherwise>
                 </choose>
+    </select>
+
+    <select id="getCategoryById" resultType="com.bwf.shop.product.bean.po.Category">
+        select * from `category` where cate_id = #{cate_id}
     </select>
 
 </mapper>

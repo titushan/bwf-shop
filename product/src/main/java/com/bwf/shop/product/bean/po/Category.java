@@ -7,20 +7,21 @@ import java.sql.Date;
  * */
 public class Category {
 
-    private Integer id;         // 商品分类编号
-    private String cate_name;   // 商品分类名称
-    private Integer cate_sort;  // 商品分类排序
-    private Date createtime;    // 商品分类创建时间
-    private Date updatetime;    // 商品分类最后更新时间
-    private Integer parent_id;  // 父级分类的分类编号
+    private Integer cate_id; // 分类编号
+    private String cate_name;   // 分类名称
+    private Integer cate_sort;  // 分类排序
+    private Date createtime;    // 创建时间
+    private Date updatetime;    // 更新时间
+    private Integer cate_parentid;  // 父级分类编号
 
     // getters and setters
-    public Integer getId() {
-        return id;
+
+    public Integer getCate_id() {
+        return cate_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCate_id(Integer cate_id) {
+        this.cate_id = cate_id;
     }
 
     public String getCate_name() {
@@ -55,11 +56,11 @@ public class Category {
         this.updatetime = updatetime;
     }
 
-    public Integer getParent_id() {
-        return parent_id;
+    public Integer getCate_parentid() {
+        return cate_parentid;
     }
 
-    public void setParent_id(Integer parent_id) {
-        this.parent_id = parent_id;
+    public void setCate_parentid(Integer cate_parentid) {
+        this.cate_parentid = cate_parentid;
     }
 }
