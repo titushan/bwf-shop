@@ -1,5 +1,6 @@
 package com.bwf.shop.product.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Category 商品分类
  * */
-public class Category {
+public class Category implements Serializable {
 
     private Integer cate_id; // 分类编号
     private String cate_name;   // 分类名称

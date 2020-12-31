@@ -7,7 +7,7 @@ import java.sql.Date;
  * */
 public class Spu {
 
-    private Integer spu_id; // 商品编号
+    private Long spu_id; // 商品编号
     private String spu_name;    // 商品名称
     private String spu_title;   // 商品标题
     private String spu_introduction;    // 商品介绍
@@ -19,11 +19,11 @@ public class Spu {
 
     // getters and  setters
 
-    public Integer getSpu_id() {
+    public Long getSpu_id() {
         return spu_id;
     }
 
-    public void setSpu_id(Integer spu_id) {
+    public void setSpu_id(Long spu_id) {
         this.spu_id = spu_id;
     }
 

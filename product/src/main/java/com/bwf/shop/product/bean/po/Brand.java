@@ -1,11 +1,12 @@
 package com.bwf.shop.product.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Brand 品牌
  * */
-public class Brand {
+public class Brand implements Serializable {
 
     private Integer brand_id;         // 品牌编号
     private String brand_name;  // 品牌名称

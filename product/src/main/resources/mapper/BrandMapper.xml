@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.shop.product.mapper.BrandMapper">
+
+    <cache type="com.bwf.shop.product.redis.RedisCache"/>
+
+    <select id="getBrandById" resultType="com.bwf.shop.product.bean.po.Brand">
+        select * from `brand` where brand_id = #{brand_id}
+    </select>
+
+</mapper>

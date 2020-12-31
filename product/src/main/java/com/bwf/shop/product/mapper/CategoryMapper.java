@@ -13,4 +13,5 @@ public interface CategoryMapper {
 
     List<Category> getCategoryListByPid( @Param("pid") Integer pid );
 
+    List<Category> getCategoryListBySpuId( @Param("spu_id") Long spu_id );
 }

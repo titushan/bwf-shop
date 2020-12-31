@@ -4,6 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.shop.product.mapper.CategoryMapper">
 
+    <cache type="com.bwf.shop.product.redis.RedisCache"/>
+
     <select id="getCategoryListByPid" resultMap="Category">
         select *
             from `category`
@@ -16,10 +18,20 @@
                         cate_parentid = #{pid}
                     </otherwise>
                 </choose>
+        order by cate_sort,cate_id
     </select>
 
     <select id="getCategoryById" resultType="com.bwf.shop.product.bean.po.Category">
         select * from `category` where cate_id = #{cate_id}
+    </select>
+
+    <select id="getCategoryListBySpuId" resultType="com.bwf.shop.product.bean.po.Category">
+        select a.*
+        from `category` a
+            inner join `cate_spu` b on a.cate_id = b.cate_id
+        where
+            b.spu_id = #{spu_id}
+        order by a.cate_sort,a.cate_id
     </select>
 
     <resultMap id="Category" type="com.bwf.shop.product.bean.po.Category">
