@@ -1,6 +1,8 @@
 package com.bwf.shop.product.bean.po;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Category 商品分类
@@ -13,6 +15,7 @@ public class Category {
     private Date createtime;    // 创建时间
     private Date updatetime;    // 更新时间
     private Integer cate_parentid;  // 父级分类编号
+    private List<Category> children = new ArrayList<>();
 
     // getters and setters
 
@@ -62,5 +65,13 @@ public class Category {
 
     public void setCate_parentid(Integer cate_parentid) {
         this.cate_parentid = cate_parentid;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
     }
 }

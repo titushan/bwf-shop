@@ -20,4 +20,9 @@ public class CategoryController {
         return categoryService.getCategoryById(cate_id);
     }
 
+    @GetMapping("/category")
+    public Object getCategoryListByPid( Integer pid){
+        return categoryService.getCategoryListByPid(pid);
+    }
+
 }
