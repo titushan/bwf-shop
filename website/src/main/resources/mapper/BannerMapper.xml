@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.shop.website.mapper.BannerMapper">
+
+    <select id="getBannerListByStatus" resultType="com.bwf.shop.website.bean.po.Banner">
+        select * from `banner` where banner_status = #{status}
+    </select>
+
+</mapper>

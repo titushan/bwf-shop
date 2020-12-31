@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.shop.order.mapper.OrderDetailMapper">
+
+    <insert id="addOrderDetailList">
+        insert into `order_details`
+        (
+            odtails_name,
+            odtails_thumburl,
+            odtails_price,
+            odtails_count,
+            odtails_amount,
+            odtails_scorestatus,
+            createtime,
+            updatetime,
+            odtails_orderno_id,
+            odtails_spu_id,
+            odtails_sku
+        )
+        values
+        <foreach collection="orderDetailList" item="detail" separator=",">
+        (
+            #{detail.odtails_name},
+            #{detail.odtails_thumburl},
+            #{detail.odtails_price},
+            #{detail.odtails_count},
+            #{detail.odtails_amount},
+            #{detail.odtails_scorestatus},
+            #{detail.createtime},
+            #{detail.updatetime},
+            #{order_id},
+            #{detail.odtails_spu_id},
+            #{detail.odtails_sku}
+        )
+        </foreach>
+    </insert>
+
+    <update id="updateOrderDetail">
+        update `order_details`
+            <set>
+                <if test="orderDetail.odtails_count != null">
+                    odtails_count = #{orderDetail.odtails_count},
+                </if>
+                <if test="orderDetail.odtails_amount != null">
+                    odtails_amount = #{orderDetail.odtails_amount},
+                </if>
+                <if test="orderDetail.odtails_scorestatus != null">
+                    odtails_scorestatus = #{orderDetail.odtails_scorestatus},
+                </if>
+                <if test="orderDetail.updatetime != null">
+                    updatetime = #{orderDetail.updatetime}
+                </if>
+            </set>
+            where
+                id = #{orderDetail.id}
+    </update>
+
+    <delete id="deleteOrderDetailList">
+        delete from `order_details` where odtails_orderno_id = #{order_id}
+    </delete>
+
+    <select id="getOrderDetailListByOrderId" resultType="com.bwf.shop.order.bean.po.OrderDetail">
+        select * from `order_details` where odtails_orderno_id = #{order_id}
+    </select>
+
+
+    <select id="getOrderDetailById" resultType="com.bwf.shop.order.bean.po.OrderDetail">
+        select * from `order_details` where id = #{id}
+    </select>
+
+</mapper>

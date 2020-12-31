@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.shop.order.mapper.OrderMapper">
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into `order`
+        (
+            order_user_id,
+            order_no,
+            order_status,
+            order_spuamount,
+            order_expressfee,
+            order_totalamount,
+            order_discountamount,
+            order_payamount,
+            order_paymode,
+            order_payplatform,
+            order_ipaddress,
+            order_paymentno,
+            order_remark,
+            createtime,
+            updatetime
+        ) values (
+            #{order.order_user_id},
+            #{order.order_no},
+            #{order.order_status},
+            #{order.order_spuamount},
+            #{order.order_expressfee},
+            #{order.order_totalamount},
+            #{order.order_discountamount},
+            #{order.order_payamount},
+            #{order.order_paymode},
+            #{order.order_payplatform},
+            #{order.order_ipaddress},
+            #{order.order_paymentno},
+            #{order.order_remark},
+            #{order.createtime},
+            #{order.updatetime}
+        )
+    </insert>
+
+    <update id="updateOrder">
+        update `order`
+            <set>
+                <if test="order.order_status != null">
+                    order_status = #{order.order_status},
+                </if>
+                <if test="order.order_spuamount != null">
+                    order_spuamount = #{order.order_spuamount},
+                </if>
+                <if test="order.order_expressfee != null">
+                    order_expressfee = #{order.order_expressfee},
+                </if>
+                <if test="order.order_totalamount != null">
+                    order_totalamount = #{order.order_totalamount},
+                </if>
+                <if test="order.order_discountamount != null">
+                    order_discountamount = #{order.order_discountamount},
+                </if>
+                <if test="order.order_payamount != null">
+                    order_payamount = #{order.order_payamount},
+                </if>
+                <if test="order.order_paymode != null">
+                    order_paymode = #{order.order_paymode},
+                </if>
+                <if test="order.order_payplatform != null">
+                    order_payplatform = #{order.order_payplatform},
+                </if>
+                <if test="order.order_ipaddress != null">
+                    order_ipaddress = #{order.order_ipaddress},
+                </if>
+                <if test="order.order_paymentno != null">
+                    order_paymentno = #{order.order_paymentno},
+                </if>
+                <if test="order.order_remark != null">
+                    order_remark = #{order.order_remark},
+                </if>
+                <if test="order.updatetime != null">
+                    updatetime = #{order.updatetime}
+                </if>
+            </set>
+            where id = #{order.id}
+    </update>
+
+    <delete id="deleteOrder">
+        delete from `order` where id = #{id} and order_status = 0
+    </delete>
+
+    <select id="getOrderById" resultType="com.bwf.shop.order.bean.po.Order">
+        select * from `order` where id = #{id}
+    </select>
+
+
+    <select id="getOrderByNo" resultType="com.bwf.shop.order.bean.po.Order">
+        select * from `order` where order_no = #{order_no}
+    </select>
+
+    <select id="getOrderListByUserId" resultType="com.bwf.shop.order.bean.po.Order">
+        select * from `order` where order_user_id = #{user_id}
+    </select>
+
+</mapper>

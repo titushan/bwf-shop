@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.shop.custom.mapper.UserMapper">
+
+    <select id="getUserByUsername" resultType="com.bwf.shop.custom.bean.po.User">
+        select * from `user`
+            where
+                user_phone = #{username}
+                or user_email = #{username}
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+        insert into `user`
+        (
+            user_phone,
+            user_email,
+            user_password,
+            user_salt,
+            user_token,
+            user_name,
+            user_avatarurl,
+            user_securitylevel,
+            user_gender,
+            user_birthday,
+            user_region,
+            user_motto,
+            user_status,
+            user_loggedtime,
+            user_expiretime,
+            user_loggedip,
+            user_createfrom,
+            createtime,
+            updatetime
+        ) values (
+        #{user.user_phone},
+        #{user.user_email},
+        #{user.user_password},
+        #{user.user_salt},
+        #{user.user_token},
+        #{user.user_name},
+        #{user.user_avatarurl},
+        #{user.user_securitylevel},
+        #{user.user_gender},
+        #{user.user_birthday},
+        #{user.user_region},
+        #{user.user_motto},
+        #{user.user_status},
+        #{user.user_loggedtime},
+        #{user.user_expiretime},
+        #{user.user_loggedip},
+        #{user.user_createfrom},
+        #{user.createtime},
+        #{user.updatetime}
+        )
+    </insert>
+
+    <update id="updateUser">
+        update `user`
+            set
+                user_phone = #{user.user_phone},
+                user_email = #{user.user_email},
+                user_password = #{user.user_password},
+                user_salt = #{user.user_salt},
+                user_token = #{user.user_token},
+                user_name = #{user.user_name},
+                user_avatarurl = #{user.user_avatarurl},
+                user_securitylevel = #{user.user_securitylevel},
+                user_gender = #{user.user_gender},
+                user_birthday = #{user.user_birthday},
+                user_region = #{user.user_region},
+                user_motto = #{user.user_motto},
+                user_status = #{user.user_status},
+                user_loggedtime = #{user.user_loggedtime},
+                user_expiretime = #{user.user_expiretime},
+                user_loggedip = #{user.user_loggedip},
+                updatetime = #{user.updatetime}
+        where id = #{user.id}
+    </update>
+
+</mapper>

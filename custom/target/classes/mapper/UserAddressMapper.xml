@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.shop.custom.mapper.UserAddressMapper">
+
+    <insert id="addUserAddress" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_address`
+        (
+            uaddr_name,
+            uaddr_phone,
+            uaddr_province,
+            uaddr_city,
+            uaddr_district,
+            uaddr_address,
+            uaddr_label,
+            createtime,
+            updatetime,
+            uaddr_user_id
+        ) values (
+            #{userAddress.uaddr_name},
+            #{userAddress.uaddr_phone},
+            #{userAddress.uaddr_province},
+            #{userAddress.uaddr_city},
+            #{userAddress.uaddr_district},
+            #{userAddress.uaddr_address},
+            #{userAddress.uaddr_label},
+            #{userAddress.createtime},
+            #{userAddress.updatetime},
+            #{userAddress.uaddr_user_id}
+        )
+    </insert>
+
+    <update id="updateUserAddress">
+        update `user_address`
+            set
+                uaddr_name = #{userAddress.uaddr_name},
+                uaddr_phone = #{userAddress.uaddr_phone},
+                uaddr_province = #{userAddress.uaddr_province},
+                uaddr_city = #{userAddress.uaddr_city},
+                uaddr_district = #{userAddress.uaddr_district},
+                uaddr_address = #{userAddress.uaddr_address},
+                uaddr_label = #{userAddress.uaddr_label},
+                updatetime = #{userAddress.updatetime}
+            where
+                id = #{userAddress.id}
+    </update>
+
+    <delete id="deleteUserAddress">
+        delete from `user_address` where id = #{id}
+    </delete>
+
+    <select id="getUserAddressByUserId" resultType="com.bwf.shop.custom.bean.po.UserAddress">
+        select * from `user_address` where uaddr_user_id = #{user_id}
+    </select>
+
+</mapper>

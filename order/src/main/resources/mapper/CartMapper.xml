@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.shop.order.mapper.CartMapper">
+
+    <insert id="addCart" useGeneratedKeys="true" keyProperty="id">
+        insert into `cart`
+        (
+            cart_userid,
+            cart_spuid,
+            cart_name,
+            cart_thumburl,
+            cart_price,
+            cart_sku,
+            cart_count,
+            cart_checked,
+            createtime,
+            updatetime
+        ) values (
+            #{cart.cart_userid},
+            #{cart.cart_spuid},
+            #{cart.cart_name},
+            #{cart.cart_thumburl},
+            #{cart.cart_price},
+            #{cart.cart_sku},
+            #{cart.cart_count},
+            #{cart.cart_checked},
+            #{cart.createtime},
+            #{cart.updatetime}
+        )
+    </insert>
+
+    <update id="updateCart">
+        update `cart`
+            set
+                cart_count = #{cart.cart_count},
+                cart_checked = #{cart.cart_checked},
+                updatetime = #{cart.updatetime}
+            where
+                id = #{cart.id}
+    </update>
+
+    <delete id="deleteCart">
+        delete from `cart` where id = #{id}
+    </delete>
+
+    <select id="getCartList" resultType="com.bwf.shop.order.bean.po.Cart">
+        select *
+            from `cart`
+            <where>
+                <if test="bo.cart_userid != null">
+                    cart_userid = #{bo.cart_userid}
+                </if>
+                <if test="bo.cart_spuid != null">
+                    and cart_spuid = #{bo.cart_spuid}
+                </if>
+                <if test="bo.cart_name != null and bo.cart_name.length > 0">
+                    and cart_name = #{bo.cart_name}
+                </if>
+                <if test="bo.cart_sku != null and bo.cart_sku.length > 0">
+                    and cart_sku = #{bo.cart_sku}
+                </if>
+            </where>
+    </select>
+
+    <delete id="emptyCartByUserId">
+        delete from `cart` where cart_userid = #{user_id}
+    </delete>
+</mapper>
