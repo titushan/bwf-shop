@@ -1,6 +1,8 @@
 package com.bwf.shop.product.bean.vo;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 public class Channel implements Serializable {
 

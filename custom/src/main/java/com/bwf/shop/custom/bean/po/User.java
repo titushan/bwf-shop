@@ -1,13 +1,14 @@
 package com.bwf.shop.custom.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * 客户
  * */
-public class User {
+public class User implements Serializable {
 
-    private Integer id;     // 客户编号
+    private Integer user_id;     // 客户编号
     private String user_phone;  // 客户手机号 可  用于登录
     private String user_email;  // 客户邮箱   可  用于登录
     private String user_password;   // 客户密码   用于登录
@@ -31,12 +32,14 @@ public class User {
     private Date updatetime;        // 更新时间
 
     // getters and setters
-    public Integer getId() {
-        return id;
+
+
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getUser_phone() {

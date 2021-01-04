@@ -2,9 +2,7 @@ package com.bwf.shop.custom.controller;
 
 import com.bwf.shop.custom.bean.po.User;
 import com.bwf.shop.custom.service.IUserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -22,16 +20,43 @@ public class UserController {
 
     @RequestMapping( value = "/regist" , method = RequestMethod.POST )
     public Object regist( User user ){
-        boolean result = userService.regist(user);
-        Map<String,Object> map = new HashMap<>();
-        map.put("result",result);
-        return map;
+        Map<String,Object> result = new HashMap<>();
+        if( userService.regist(user) ){
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+        }else{
+
+            result.put("httpstatus","error");
+            result.put("httpcode",401);
+        }
+
+        return result;
     }
 
     @RequestMapping( value = "/login" , method = RequestMethod.POST )
     public Object login( String username , String password ){
         User user = userService.login(username,password);
-        return user;
+        Map<String,Object> result = new HashMap<>();
+        if( user == null ){
+            result.put("httpstatus","error");
+            result.put("httpcode",401);
+        }else{
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+            result.put("data",user.getUser_token());
+        }
+
+        return result;
+    }
+    @PostMapping("/user")
+    public Object getUserByToken( @RequestHeader("Authorization") String authorization ){
+
+        System.out.println("====> token = " + authorization);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("httpstatus","success");
+        result.put("httpcode",200);
+        return result;
     }
 
 }

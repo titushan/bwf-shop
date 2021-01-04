@@ -1,5 +1,6 @@
 package com.bwf.shop.custom.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.bwf.shop.custom.bean.po.User;
@@ -11,6 +12,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.util.UUID;
 
 /**
  * User客户资源 业务逻辑层 实现类
@@ -21,6 +23,8 @@ public class UserService implements IUserService {
     // 依赖的数据访问层
     @Resource
     private UserMapper userMapper;
+
+    private static final String JWT_KEY = "bwf";
 
     @Override
     @Transactional( rollbackFor = Exception.class )
@@ -33,13 +37,10 @@ public class UserService implements IUserService {
             return false;
         }else{
             // 用户填写的 手机号码 和 电子邮箱  没有被注册  开始用户注册流程
+            user.setUser_salt(UUID.randomUUID().toString() );
             // 对 用户填写的密码 进行 md5 加密
-            String pwd = DigestUtils.md5DigestAsHex( user.getUser_password().getBytes()  );
-            // 使用 用户手机号码 作为 盐值
-            String salt = DigestUtils.md5DigestAsHex( user.getUser_phone().getBytes() );
-            user.setUser_salt( salt );
-            // 对 用户密码 加盐 md5 加密
-            user.setUser_password( DigestUtils.md5DigestAsHex( (pwd + salt).getBytes() ) );
+            user.setUser_password( DigestUtils.md5DigestAsHex(  (user.getUser_salt() + user.getUser_password()).getBytes() ) );
+
             // 设置 默认安全等级
             user.setUser_securitylevel(2);
             // 设置 默认性别
@@ -68,18 +69,18 @@ public class UserService implements IUserService {
             // 该 账户名称 的 用户对象 存在
             // 验证 密码是否正确
             // 将 用户填写的密码 进行 md5 加密
-            password = DigestUtils.md5DigestAsHex( password.getBytes() );
             // 将 用户填写的密码 加盐 md5 加密
-            password = DigestUtils.md5DigestAsHex( (password+user.getUser_salt()).getBytes() );
+            password = DigestUtils.md5DigestAsHex( (user.getUser_salt()+password).getBytes() );
             // 验证 加密后的用户填写的密码 是否和 该账户名称 账户的密码 相同
             if( password.equals( user.getUser_password() ) ){
                 // 用户填写的密码 正确
                 // 为 当前登录的 用户 签发 token 令牌
                 String token = JWT.create()
-                        .withAudience( user.getId().toString() )   // 令牌的客户标识
+                        .withClaim("user", JSON.toJSONString(user))
+                        .withAudience( user.getUser_id().toString() )   // 令牌的客户标识
                         .withIssuedAt( new java.util.Date(System.currentTimeMillis()) ) // 令牌的签发时间 有效期的开始时间
                         .withExpiresAt( new java.util.Date( System.currentTimeMillis() + 24*60*1000 ) ) // 令牌的到期时间 有效期的结束时间
-                        .sign(Algorithm.HMAC256( user.getUser_password() ));
+                        .sign(Algorithm.HMAC256( JWT_KEY ));
                 // 设置 用户的 令牌
                 user.setUser_token( token );
                 // 设置 用户的 令牌到期时间
