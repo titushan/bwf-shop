@@ -40,6 +40,7 @@
         <result column="cate_sort" property="cate_sort"/>
         <result column="createtime" property="createtime"/>
         <result column="updatetime" property="updatetime"/>
+        <result column="cate_channel" property="cate_channel"/>
         <result column="cate_parentid" property="cate_parentid"/>
         <collection
                 property="children" ofType="com.bwf.shop.product.bean.po.Category"

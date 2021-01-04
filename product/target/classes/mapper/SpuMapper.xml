@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.shop.product.mapper.SpuMapper">
+
+    <select id="getSpuListBySearchBo" resultMap="Spu">
+        select a.*
+        from
+        `spu` a
+        inner join `cate_spu` b on a.spu_id = b.spu_id
+        <where>
+            <if test="bo.spu_id != null">
+                a.spu_id = #{bo.spu_id}
+            </if>
+            <if test="bo.spu_name != null and bo.spu_name.length > 0">
+                and a.spu_name like '%${bo.spu_name}%'
+            </if>
+            <if test="bo.spu_title != null and bo.spu_title.length > 0">
+                and a.spu_title like '%${bo.spu_title}%'
+            </if>
+            <if test="bo.spu_status != null">
+                and a.spu_status = #{bo.spu_status}
+            </if>
+            <if test="bo.spu_brand_id != null">
+                and a.spu_brand_id = #{bo.spu_brand_id}
+            </if>
+            <if test="bo.cate_id != null">
+                and b.cate_id = #{bo.cate_id}
+            </if>
+            <if test="bo.spuAttrValueList != null and bo.spuAttrValueList.size > 0">
+                and a.spu_id in(
+                select spu_id
+                from `spu_attr_value_spus`
+                where spu_attr_value_id in
+                <foreach collection="bo.spuAttrValueList" item="value_id" separator="," open="(" close=")">
+                    #{value_id}
+                </foreach>
+                group by spu_id
+                having count(spu_id) = ${bo.spuAttrValueList.size}
+                )
+            </if>
+        </where>
+        limit #{bo.start},#{bo.length}
+    </select>
+
+    <select id="getSpuListSizeBySearchBo" resultType="java.lang.Long">
+        select count(a.spu_id)
+        from
+        `spu` a
+        inner join `cate_spu` b on a.spu_id = b.spu_id
+        <where>
+            <if test="bo.spu_id != null">
+                a.spu_id = #{bo.spu_id}
+            </if>
+            <if test="bo.spu_name != null and bo.spu_name.length > 0">
+                and a.spu_name like '%${bo.spu_name}%'
+            </if>
+            <if test="bo.spu_title != null and bo.spu_title.length > 0">
+                and a.spu_title like '%${bo.spu_title}%'
+            </if>
+            <if test="bo.spu_status != null">
+                and a.spu_status = #{bo.spu_status}
+            </if>
+            <if test="bo.spu_brand_id != null">
+                and a.spu_brand_id = #{bo.spu_brand_id}
+            </if>
+            <if test="bo.cate_id != null">
+                and b.cate_id = #{bo.cate_id}
+            </if>
+            <if test="bo.spuAttrValueList != null and bo.spuAttrValueList.size > 0">
+                and a.spu_id in(
+                select spu_id
+                from `spu_attr_value_spus`
+                where spu_attr_value_id in
+                <foreach collection="bo.spuAttrValueList" item="value_id" separator="," open="(" close=")">
+                    #{value_id}
+                </foreach>
+                group by spu_id
+                having count(spu_id) = ${bo.spuAttrValueList.size}
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="getSpuById" resultMap="Spu">
+        select * from `spu` where spu_id = #{spu_id}
+    </select>
+    <resultMap id="Spu" type="com.bwf.shop.product.bean.po.Spu">
+        <id property="spu_id" column="spu_id"/>
+        <result property="spu_name" column="spu_name"/>
+        <result property="spu_title" column="spu_title"/>
+        <result property="spu_introduction" column="spu_introduction"/>
+        <result property="spu_unit" column="spu_unit"/>
+        <result property="spu_status" column="spu_status"/>
+        <result property="createtime" column="createtime"/>
+        <result property="updatetime" column="updatetime"/>
+        <result property="spu_brand_id" column="spu_brand_id"/>
+        <association
+                property="brand" javaType="com.bwf.shop.product.bean.po.Brand"
+                column="spu_brand_id" select="com.bwf.shop.product.mapper.BrandMapper.getBrandById"/>
+        <collection
+                property="categoryList" ofType="com.bwf.shop.product.bean.po.Category"
+                column="spu_id" select="com.bwf.shop.product.mapper.CategoryMapper.getCategoryListBySpuId"/>
+        <collection
+                property="skuList" ofType="com.bwf.shop.product.bean.po.Sku"
+                column="spu_id" select="com.bwf.shop.product.mapper.SkuMapper.getSkuListBySpuId"/>
+    </resultMap>
+
+</mapper>

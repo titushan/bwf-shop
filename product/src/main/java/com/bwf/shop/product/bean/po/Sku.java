@@ -9,7 +9,7 @@ import java.sql.Date;
 public class Sku {
 
     private Integer sku_id;             // 规格编号
-    private Integer sku_spu_id;     // 所属商品编号
+    private Long sku_spu_id;     // 所属商品编号
     private Integer sortno;         // 规格排序
     private String sku_name;        // 规格名称
     private String sku_spuattr;     // 规格值json字符串
@@ -32,11 +32,11 @@ public class Sku {
         this.sku_id = sku_id;
     }
 
-    public Integer getSku_spu_id() {
+    public Long getSku_spu_id() {
         return sku_spu_id;
     }
 
-    public void setSku_spu_id(Integer sku_spu_id) {
+    public void setSku_spu_id(Long sku_spu_id) {
         this.sku_spu_id = sku_spu_id;
     }
 

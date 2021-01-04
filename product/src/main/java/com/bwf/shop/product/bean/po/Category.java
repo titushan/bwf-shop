@@ -1,5 +1,8 @@
 package com.bwf.shop.product.bean.po;
 
+import com.alibaba.fastjson.JSONObject;
+import com.bwf.shop.product.bean.vo.Channel;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -16,9 +19,29 @@ public class Category implements Serializable {
     private Date createtime;    // 创建时间
     private Date updatetime;    // 更新时间
     private Integer cate_parentid;  // 父级分类编号
+    private String cate_channel;
+    private List<Channel> channelList = new ArrayList<>();
     private List<Category> children = new ArrayList<>();
 
+
     // getters and setters
+
+    public List<Channel> getChannelList() {
+        return channelList;
+    }
+
+    public void setChannelList(List<Channel> channelList) {
+        this.channelList = channelList;
+    }
+
+    public String getCate_channel() {
+        return cate_channel;
+    }
+
+    public void setCate_channel(String cate_channel) {
+        this.cate_channel = cate_channel;
+        this.setChannelList(JSONObject.parseArray( cate_channel,Channel.class ));
+    }
 
     public Integer getCate_id() {
         return cate_id;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.shop.product.mapper.SkuMapper">
+
+    <select id="getSkuListBySpuId" resultType="com.bwf.shop.product.bean.po.Sku">
+        select * from `sku` where sku_spu_id = #{spu_id} order by sortno,sku_id
+    </select>
+
+</mapper>

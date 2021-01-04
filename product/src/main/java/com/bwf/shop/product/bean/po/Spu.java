@@ -1,6 +1,8 @@
 package com.bwf.shop.product.bean.po;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Spu 商品
@@ -16,6 +18,9 @@ public class Spu {
     private Date createtime;    // 创建时间
     private Date updatetime;    // 更新时间
     private Integer spu_brand_id;   // 品牌编号
+    private Brand brand;
+    private List<Category> categoryList = new ArrayList<>();
+    private List<Sku> skuList = new ArrayList<>();
 
     // getters and  setters
 
@@ -85,6 +90,30 @@ public class Spu {
 
     public Integer getSpu_brand_id() {
         return spu_brand_id;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public List<Sku> getSkuList() {
+        return skuList;
+    }
+
+    public void setSkuList(List<Sku> skuList) {
+        this.skuList = skuList;
     }
 
     public void setSpu_brand_id(Integer spu_brand_id) {
