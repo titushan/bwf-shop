@@ -10,7 +10,7 @@
                 or user_email = #{username}
     </select>
 
-    <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
         insert into `user`
         (
             user_phone,
@@ -75,7 +75,7 @@
                 user_expiretime = #{user.user_expiretime},
                 user_loggedip = #{user.user_loggedip},
                 updatetime = #{user.updatetime}
-        where id = #{user.id}
+        where user_id = #{user.user_id}
     </update>
 
 </mapper>
