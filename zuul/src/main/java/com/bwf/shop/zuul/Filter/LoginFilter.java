@@ -50,6 +50,7 @@ public class LoginFilter extends ZuulFilter {
                 if( token != null ){
                     User user = userMapper.getUserByToken(token);
                     if( user != null ){
+                        requestContext.addZuulRequestHeader("user_id",user.getUser_id()+"");
                         requestContext.setSendZuulResponse(true);
                         requestContext.setResponseStatusCode(200);
                         return true;
