@@ -76,7 +76,7 @@ public class UserService implements IUserService {
                 // 用户填写的密码 正确
                 // 为 当前登录的 用户 签发 token 令牌
                 String token = JWT.create()
-                        .withClaim("user", JSON.toJSONString(user))
+//                        .withClaim("user", JSON.toJSONString(user))
                         .withAudience( user.getUser_id().toString() )   // 令牌的客户标识
                         .withIssuedAt( new java.util.Date(System.currentTimeMillis()) ) // 令牌的签发时间 有效期的开始时间
                         .withExpiresAt( new java.util.Date( System.currentTimeMillis() + 24*60*1000 ) ) // 令牌的到期时间 有效期的结束时间
