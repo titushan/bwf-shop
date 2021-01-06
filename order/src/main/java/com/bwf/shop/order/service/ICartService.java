@@ -40,4 +40,5 @@ public interface ICartService {
      * */
     List<Cart> getCartList(CartSearchBo bo);
 
+    boolean emptyCartByUserId( Integer user_id );
 }

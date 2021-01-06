@@ -25,11 +25,9 @@ public class CartController {
 
     // 添加购物车
     @RequestMapping( value = "/cart" ,method = RequestMethod.POST)
-    public Object addCart(@RequestHeader String token , Cart cart ){
+    public Object addCart(@RequestHeader Integer user_id , Cart cart ){
 
         // 从 token 获取 当前登录的用户编号 设置给 cart 对象
-        DecodedJWT jwt = JWT.decode(token);
-        Integer user_id = Integer.parseInt( jwt.getAudience().get(0) );
         cart.setCart_userid(user_id);
 
         // 设置 购物车  默认选中
@@ -38,44 +36,78 @@ public class CartController {
         cart.setCreatetime( new Date(System.currentTimeMillis()));
 
         // 添加购物车
-        boolean result = cartService.addCart( cart );
+        boolean bo = cartService.addCart( cart );
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("result",result);
-        return map;
+        Map<String,Object> result = new HashMap<>();
+        if( bo ){
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+        }else{
+            result.put("httpstatus","error");
+            result.put("httpcode",500);
+        }
+        return result;
     }
 
     // 修改购物车
     @RequestMapping( value = "/cart" ,method = RequestMethod.PUT)
-    public Object updateCart( Cart cart ){
+    public Object updateCart( @RequestHeader Integer user_id , Cart cart ){
         // 设置 购物车 最后更新时间
         cart.setUpdatetime(new Date(System.currentTimeMillis()));
         // 修改购物车
-        boolean result = cartService.updateCart(cart);
+        boolean bo = cartService.updateCart(cart);
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("result",result);
-        return map;
+        Map<String,Object> result = new HashMap<>();
+        if( bo ){
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+        }else{
+            result.put("httpstatus","error");
+            result.put("httpcode",500);
+        }
+        return result;
     }
 
     // 删除购物车
     @RequestMapping( value = "/cart/{id}" ,method = RequestMethod.DELETE)
-    public Object deleteCart( @PathVariable Integer id){
-        boolean result = cartService.deleteCart(id);
-        Map<String,Object> map = new HashMap<>();
-        map.put("result",result);
-        return map;
+    public Object deleteCart( @RequestHeader Integer user_id , @PathVariable Integer id){
+        boolean bo = cartService.deleteCart(id);
+        Map<String,Object> result = new HashMap<>();
+        if( bo ){
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+        }else{
+            result.put("httpstatus","error");
+            result.put("httpcode",500);
+        }
+        return result;
+    }
+
+    @DeleteMapping("/cart")
+    public Object emptyCart( @RequestHeader Integer user_id ){
+        boolean bo = cartService.emptyCartByUserId( user_id );
+        Map<String,Object> result = new HashMap<>();
+        if( bo ){
+            result.put("httpstatus","success");
+            result.put("httpcode",200);
+        }else{
+            result.put("httpstatus","error");
+            result.put("httpcode",500);
+        }
+        return result;
     }
 
     // 查询购物车
     @RequestMapping( value = "/cart" ,method = RequestMethod.GET)
-    public Object getCartList( CartSearchBo bo , @RequestHeader String token ){
+    public Object getCartList( CartSearchBo bo , @RequestHeader Integer user_id ){
         // 从token获取当前登录的用户编号 设置给 当前的查询条件bo
-        DecodedJWT jwt = JWT.decode(token);
-        Integer user_id = Integer.parseInt( jwt.getAudience().get(0) );
         bo.setCart_userid(user_id);
+        Map<String,Object> result = new HashMap<>();
+        result.put("httpstatus","success");
+        result.put("httpcode",200);
+        result.put("data",cartService.getCartList(bo));
         // 查询 满足条件的 购物车列表
-        return cartService.getCartList(bo);
+        return result;
     }
 
 }

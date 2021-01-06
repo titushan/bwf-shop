@@ -1,31 +1,34 @@
 package com.bwf.shop.order.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Cart 购物车
  * */
-public class Cart {
+public class Cart implements Serializable {
 
-    private Integer id;         // 购物车编号
+    private Integer car_id;         // 购物车编号
     private Integer cart_userid;    // 所属用户编号
     private Integer cart_spuid;     // 商品编号
     private String cart_name;       // 商品名称
+    private String cart_sku;
     private String cart_thumburl;   // 商品封面图片
     private Double cart_price;      // 商品购买单价
-    private String cart_sku;        // 商品规格
     private Integer cart_count;     // 订购数量
     private Byte cart_checked;      // 是否选中 0:选中 1：不选择
     private Date createtime;        // 创建时间
     private Date updatetime;        // 最后修改时间
 
+
     // getters and setters
-    public Integer getId() {
-        return id;
+
+    public Integer getCar_id() {
+        return car_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCar_id(Integer car_id) {
+        this.car_id = car_id;
     }
 
     public Integer getCart_userid() {
@@ -52,6 +55,14 @@ public class Cart {
         this.cart_name = cart_name;
     }
 
+    public String getCart_sku() {
+        return cart_sku;
+    }
+
+    public void setCart_sku(String cart_sku) {
+        this.cart_sku = cart_sku;
+    }
+
     public String getCart_thumburl() {
         return cart_thumburl;
     }
@@ -66,14 +77,6 @@ public class Cart {
 
     public void setCart_price(Double cart_price) {
         this.cart_price = cart_price;
-    }
-
-    public String getCart_sku() {
-        return cart_sku;
-    }
-
-    public void setCart_sku(String cart_sku) {
-        this.cart_sku = cart_sku;
     }
 
     public Integer getCart_count() {

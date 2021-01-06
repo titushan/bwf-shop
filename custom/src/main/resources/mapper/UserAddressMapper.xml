@@ -4,7 +4,9 @@
 
 <mapper namespace="com.bwf.shop.custom.mapper.UserAddressMapper">
 
-    <insert id="addUserAddress" useGeneratedKeys="true" keyProperty="id">
+    <cache type="com.bwf.shop.custom.redis.RedisCache"/>
+
+    <insert id="addUserAddress" useGeneratedKeys="true" keyProperty="uaddr_id">
         insert into `user_address`
         (
             uaddr_name,
@@ -43,15 +45,20 @@
                 uaddr_label = #{userAddress.uaddr_label},
                 updatetime = #{userAddress.updatetime}
             where
-                id = #{userAddress.id}
+                uaddr_id = #{userAddress.uaddr_id}
     </update>
 
     <delete id="deleteUserAddress">
-        delete from `user_address` where id = #{id}
+        delete from `user_address` where uaddr_id = #{id}
     </delete>
 
     <select id="getUserAddressByUserId" resultType="com.bwf.shop.custom.bean.po.UserAddress">
         select * from `user_address` where uaddr_user_id = #{user_id}
+        order by updatetime desc
+    </select>
+
+    <select id="getUserAddressById" resultType="com.bwf.shop.custom.bean.po.UserAddress">
+        select * from `user_address` where uaddr_id = #{uaddr_id}
     </select>
 
 </mapper>

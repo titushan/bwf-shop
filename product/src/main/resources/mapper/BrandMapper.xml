@@ -10,4 +10,13 @@
         select * from `brand` where brand_id = #{brand_id}
     </select>
 
+    <select id="getBrandListByCategoryId" resultType="com.bwf.shop.product.bean.po.Brand">
+        select a.*
+        from `brand` a
+            inner join `brand_categories` b on a.brand_id = b.brand_id
+        where
+            b.category_id = #{cate_id}
+        order by a.sortno,a.brand_id
+    </select>
+
 </mapper>

@@ -1,13 +1,14 @@
 package com.bwf.shop.custom.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * 客户收货信息
  * */
-public class UserAddress {
+public class UserAddress implements Serializable {
 
-    private Integer id;     // 收货信息编号
+    private Integer uaddr_id;     // 收货信息编号
     private String uaddr_name;  // 收货人姓名
     private String uaddr_phone; // 收货人联系电话
     private String uaddr_province;  // 收货 省份/自治区/直辖市
@@ -20,12 +21,13 @@ public class UserAddress {
     private Integer uaddr_user_id;  // 所属客户编号
 
     // getters and setters
-    public Integer getId() {
-        return id;
+
+    public Integer getUaddr_id() {
+        return uaddr_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUaddr_id(Integer uaddr_id) {
+        this.uaddr_id = uaddr_id;
     }
 
     public String getUaddr_name() {

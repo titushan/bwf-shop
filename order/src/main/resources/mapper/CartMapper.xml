@@ -5,7 +5,9 @@
 
 <mapper namespace="com.bwf.shop.order.mapper.CartMapper">
 
-    <insert id="addCart" useGeneratedKeys="true" keyProperty="id">
+    <cache type="com.bwf.shop.order.redis.RedisCache"/>
+
+    <insert id="addCart" useGeneratedKeys="true" keyProperty="car_id">
         insert into `cart`
         (
             cart_userid,
@@ -39,11 +41,11 @@
                 cart_checked = #{cart.cart_checked},
                 updatetime = #{cart.updatetime}
             where
-                id = #{cart.id}
+                car_id = #{cart.car_id}
     </update>
 
     <delete id="deleteCart">
-        delete from `cart` where id = #{id}
+        delete from `cart` where car_id = #{id}
     </delete>
 
     <select id="getCartList" resultType="com.bwf.shop.order.bean.po.Cart">

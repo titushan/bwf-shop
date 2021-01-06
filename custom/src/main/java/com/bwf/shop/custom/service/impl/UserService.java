@@ -98,4 +98,9 @@ public class UserService implements IUserService {
 
         return user;
     }
+
+    @Override
+    public User getUserById(Integer user_id) {
+        return userMapper.getUserById(user_id);
+    }
 }

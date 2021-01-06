@@ -39,4 +39,6 @@ public interface UserAddressMapper {
      * @return 该用户的收货信息列表
      * */
     List<UserAddress> getUserAddressByUserId( @Param("user_id") Integer user_id );
+
+    UserAddress getUserAddressById( @Param("uaddr_id") Integer uaddr_id );
 }

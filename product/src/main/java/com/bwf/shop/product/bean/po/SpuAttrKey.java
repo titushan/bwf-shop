@@ -2,6 +2,8 @@ package com.bwf.shop.product.bean.po;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商品属性键模型对象
@@ -20,8 +22,18 @@ public class SpuAttrKey implements Serializable {
 
     private Date updatetime;    // 更新时间
 
+    private List<SpuAttrValue> spuAttrValueList = new ArrayList<>();
+
     // getters and setters
 
+
+    public List<SpuAttrValue> getSpuAttrValueList() {
+        return spuAttrValueList;
+    }
+
+    public void setSpuAttrValueList(List<SpuAttrValue> spuAttrValueList) {
+        this.spuAttrValueList = spuAttrValueList;
+    }
 
     public Integer getKey_id() {
         return key_id;

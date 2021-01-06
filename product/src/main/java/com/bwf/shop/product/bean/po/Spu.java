@@ -1,5 +1,12 @@
 package com.bwf.shop.product.bean.po;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.bwf.shop.product.bean.vo.AttrKey;
+import com.bwf.shop.product.bean.vo.AttrValue;
+import com.bwf.shop.product.bean.vo.SpuAttrVo;
+
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +14,7 @@ import java.util.List;
 /**
  * Spu 商品
  * */
-public class Spu {
+public class Spu implements Serializable {
 
     private Long spu_id; // 商品编号
     private String spu_name;    // 商品名称
@@ -21,8 +28,55 @@ public class Spu {
     private Brand brand;
     private List<Category> categoryList = new ArrayList<>();
     private List<Sku> skuList = new ArrayList<>();
-
+    private List<SpuAttrVo> spuAttrVoList = new ArrayList<>();
+    private List<AttrKey> attrKeyList = new ArrayList<>();
     // getters and  setters
+
+    public List<SpuAttrVo> getSpuAttrVoList() {
+        return spuAttrVoList;
+    }
+
+    public void setSpuAttrVoList(List<SpuAttrVo> spuAttrVoList) {
+        boolean flag = true;
+
+        for( SpuAttrVo vo : spuAttrVoList ){
+            AttrValue attrValue = new AttrValue();
+            attrValue.setValue_id(vo.getValue_id());
+            attrValue.setValue_name(vo.getValue_name());
+            attrValue.setCreatetime(vo.getValue_createtime());
+            attrValue.setUpdatetime(vo.getValue_updatetime());
+            attrValue.setValue_images(JSON.parseArray( vo.getSpu_attr_imgs() , String.class ));
+            flag = true;
+            for( AttrKey ak : getAttrKeyList() ){
+                if( ak.getKey_id() == vo.getKey_id() ){
+                    ak.getAttrValueList().add(attrValue);
+                    flag = false;
+                    break;
+                }
+            }
+            if( flag ){
+                AttrKey attrKey = new AttrKey();
+                attrKey.setKey_id(vo.getKey_id());
+                attrKey.setKey_name(vo.getKey_name());
+                attrKey.setKey_issku(vo.getKey_issku());
+                attrKey.setKey_ishigh(vo.getKey_ishigh());
+                attrKey.setCreatetime(vo.getKey_createtime());
+                attrKey.setUpdatetime(vo.getKey_updatetime());
+                attrKey.getAttrValueList().add(attrValue);
+                getAttrKeyList().add(attrKey);
+            }
+        }
+
+//        this.spuAttrVoList = spuAttrVoList;
+    }
+
+    public List<AttrKey> getAttrKeyList() {
+        return attrKeyList;
+    }
+
+    public void setAttrKeyList(List<AttrKey> attrKeyList) {
+        this.attrKeyList = attrKeyList;
+    }
 
     public Long getSpu_id() {
         return spu_id;

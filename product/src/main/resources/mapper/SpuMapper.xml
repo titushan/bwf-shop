@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.shop.product.mapper.SpuMapper">
-
+    <cache type="com.bwf.shop.product.redis.RedisCache"/>
     <select id="getSpuListBySearchBo" resultMap="Spu">
         select a.*
         from
@@ -105,6 +105,9 @@
         <collection
                 property="skuList" ofType="com.bwf.shop.product.bean.po.Sku"
                 column="spu_id" select="com.bwf.shop.product.mapper.SkuMapper.getSkuListBySpuId"/>
+        <collection property="spuAttrVoList" ofType="com.bwf.shop.product.bean.vo.SpuAttrVo"
+                column="spu_id" select="com.bwf.shop.product.mapper.SpuAttrKeyMapper.getSpuAttrVoListBySpuId"/>
     </resultMap>
+
 
 </mapper>

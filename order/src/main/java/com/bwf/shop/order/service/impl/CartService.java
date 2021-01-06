@@ -28,7 +28,7 @@ public class CartService implements ICartService {
         CartSearchBo bo = new CartSearchBo();
         bo.setCart_userid( cart.getCart_userid() );
         bo.setCart_spuid( cart.getCart_spuid() );
-        bo.setCart_sku( cart.getCart_sku() );
+        bo.setCart_name( cart.getCart_name() );
         int a = 0;
         // 去数据库查询 该用户编号、商品编号、商品规格的 购物车记录 是否存在
         List<Cart> cartList = cartMapper.getCartList(bo);
@@ -61,5 +61,10 @@ public class CartService implements ICartService {
     @Override
     public List<Cart> getCartList(CartSearchBo bo) {
         return cartMapper.getCartList(bo);
+    }
+
+    @Override
+    public boolean emptyCartByUserId(Integer user_id) {
+        return cartMapper.emptyCartByUserId(user_id) > 0;
     }
 }

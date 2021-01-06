@@ -37,4 +37,9 @@ public class UserAddressService implements IUserAddressService {
     public List<UserAddress> getUserAddressByUserId(Integer user_id) {
         return userAddressMapper.getUserAddressByUserId(user_id);
     }
+
+    @Override
+    public UserAddress getUserAddressById(Integer uaddr_id) {
+        return userAddressMapper.getUserAddressById(uaddr_id);
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * China 中国地区 资源 controller
@@ -19,7 +21,11 @@ public class ChinaController {
 
     @RequestMapping( value = "/china" , method = RequestMethod.GET)
     public Object getChinaList( Integer pid ){
-        return chinaService.getChinaListByPid(pid);
+        Map<String,Object> result = new HashMap<>();
+        result.put("httpstatus","success");
+        result.put("httpcode",200);
+        result.put("data",chinaService.getChinaListByPid(pid));
+        return result;
     }
 
 }

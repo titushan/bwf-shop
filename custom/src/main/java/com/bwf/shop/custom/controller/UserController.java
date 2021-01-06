@@ -35,10 +35,9 @@ public class UserController {
 
     @RequestMapping( value = "/login" , method = RequestMethod.POST )
     public Object login( String username , String password ){
-        System.out.println("  =====> username = " + username);
-        System.out.println("  =====> password = " + password);
+
         User user = userService.login(username,password);
-        System.out.println("  =====> user = " + user.getUser_name());
+
         Map<String,Object> result = new HashMap<>();
         if( user == null ){
             result.put("httpstatus","error");
@@ -46,22 +45,22 @@ public class UserController {
         }else{
             result.put("httpstatus","success");
             result.put("httpcode",200);
-//            result.put("data",user.getUser_token());
-            result.put("data",null);
+            result.put("data",user.getUser_token());
+//            result.put("data",null);
         }
 
         return result;
     }
-    @PostMapping("/user")
+
+    @GetMapping("/user")
     public Object getUserByToken(
             @RequestHeader("Authorization") String authorization ,
             @RequestHeader("user_id") Integer user_id){
 
-        System.out.println("====> token = " + authorization);
-        System.out.println("====> user_id = " + user_id);
         Map<String,Object> result = new HashMap<>();
         result.put("httpstatus","success");
         result.put("httpcode",200);
+        result.put("data",userService.getUserById(user_id));
         return result;
     }
 

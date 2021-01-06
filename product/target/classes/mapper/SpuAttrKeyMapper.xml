@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.shop.product.mapper.SpuAttrKeyMapper">
+
+    <cache type="com.bwf.shop.product.redis.RedisCache"/>
+
+    <select id="getSpuAttrKeyListByCategoryId" resultMap="SpuAttrKey">
+        select a.*
+        from `spu_attr_key` a
+            inner join `spu_attr_key_categories` b on a.key_id = b.spu_attr_key_id
+        where b.category_id = #{cate_id}
+        <if test="key_issku != null">
+            and a.key_issku = #{key_issku}
+        </if>
+        <if test="key_ishigh != null">
+            and a.key_ishigh = #{key_ishigh}
+        </if>
+    </select>
+    <select id="getSpuAttrVoListBySpuId" resultMap="SpuAttrVo">
+        select
+            a.id,a.spu_id,
+            c.key_id,c.key_name,c.key_issku,c.key_ishigh,
+            c.createtime as key_createtime,c.updatetime as key_updatetime,
+            b.id as value_id,b.value_name,
+            b.createtime as value_createtime,
+            b.updatetime as value_updatetime,
+            a.spu_attr_imgs
+        from `spu_attr_value_spus` a
+            inner join `spu_attr_value` b on a.spu_attr_value_id = b.id
+            inner join `spu_attr_key` c on b.value_attr_key_id = c.key_id
+        where a.spu_id = #{spu_id} and c.key_issku = 1
+    </select>
+    <resultMap id="SpuAttrKey" type="com.bwf.shop.product.bean.po.SpuAttrKey">
+        <id property="key_id" column="key_id" />
+        <result property="key_name" column="key_name"/>
+        <result property="key_issku" column="key_issku"/>
+        <result property="key_ishigh" column="key_ishigh"/>
+        <result property="createtime" column="createtime"/>
+        <result property="updatetime" column="updatetime"/>
+        <collection
+                property="spuAttrValueList" ofType="com.bwf.shop.product.bean.po.SpuAttrValue"
+                column="key_id" select="com.bwf.shop.product.mapper.SpuAttrValueMapper.getSpuAttrValueListByKeyId"/>
+    </resultMap>
+    <resultMap id="SpuAttrVo" type="com.bwf.shop.product.bean.vo.SpuAttrVo">
+        <id property="id" column="id"/>
+        <result property="spu_id" column="spu_id"/>
+        <result property="key_id" column="key_id"/>
+        <result property="key_name" column="key_name"/>
+        <result property="key_issku" column="key_issku"/>
+        <result property="key_ishigh" column="key_ishigh"/>
+        <result property="key_createtime" column="key_createtime"/>
+        <result property="key_updatetime" column="key_updatetime"/>
+        <result property="value_id" column="value_id"/>
+        <result property="value_name" column="value_name"/>
+        <result property="value_createtime" column="value_createtime"/>
+        <result property="value_updatetime" column="value_updatetime"/>
+        <result property="spu_attr_imgs" column="spu_attr_imgs"/>
+    </resultMap>
+</mapper>

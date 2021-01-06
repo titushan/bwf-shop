@@ -1,12 +1,13 @@
 package com.bwf.shop.product.bean.po;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
  * Sku 商品规格
  * */
-public class Sku {
+public class Sku implements Serializable {
 
     private Integer sku_id;             // 规格编号
     private Long sku_spu_id;     // 所属商品编号

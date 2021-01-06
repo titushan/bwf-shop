@@ -3,8 +3,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.shop.custom.mapper.ChinaMapper">
 
-    <select id="getChinaListByPid" resultType="com.bwf.shop.custom.bean.po.China">
-        select * from `china` where pid = #{pid} and id != 0
+    <cache type="com.bwf.shop.custom.redis.RedisCache"/>
+
+    <select id="getChinaListByPid" resultMap="China">
+        select * from `china` where id != 0
+        <choose>
+            <when test="pid==null or pid==0">
+                and pid = 0
+            </when>
+            <otherwise>
+                and pid = #{pid}
+            </otherwise>
+        </choose>
     </select>
+
+    <resultMap id="China" type="com.bwf.shop.custom.bean.po.China">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="pid" column="pid"/>
+        <collection
+                property="children" ofType="com.bwf.shop.custom.bean.po.China"
+                column="id" select="getChinaListByPid"/>
+    </resultMap>
 
 </mapper>

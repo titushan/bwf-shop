@@ -22,4 +22,5 @@ public interface IUserService {
      * */
     User login( String username , String password );
 
+    User getUserById( Integer user_id );
 }

@@ -38,4 +38,5 @@ public interface IUserAddressService {
      * */
     List<UserAddress> getUserAddressByUserId(Integer user_id );
 
+    UserAddress getUserAddressById( Integer uaddr_id );
 }

@@ -3,11 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.shop.custom.mapper.UserMapper">
 
+    <cache type="com.bwf.shop.custom.redis.RedisCache"/>
+
     <select id="getUserByUsername" resultType="com.bwf.shop.custom.bean.po.User">
         select * from `user`
             where
                 user_phone = #{username}
                 or user_email = #{username}
+    </select>
+
+    <select id="getUserById" resultType="com.bwf.shop.custom.bean.po.User">
+        select * from `user` where user_id = #{user_id}
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">

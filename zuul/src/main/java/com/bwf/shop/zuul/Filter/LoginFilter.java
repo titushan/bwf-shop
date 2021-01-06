@@ -43,12 +43,14 @@ public class LoginFilter extends ZuulFilter {
 
         // 循环拦截列表
         for( String iurl : interceptor_urls ){
-            if( (base_url+iurl).equals( request.getRequestURL().toString() ) ){
+            if( request.getRequestURL().toString().startsWith (base_url+iurl) ){
                 // 获取当前请求报文头信息中的token信息
                 String token = request.getHeader("Authorization");
+                System.out.println("====> token = " + token);
                 requestContext.addZuulRequestHeader("Authorization",token);
                 if( token != null ){
                     User user = userMapper.getUserByToken(token);
+                    System.out.println("====> user = " + user.getUser_name());
                     if( user != null ){
                         requestContext.addZuulRequestHeader("user_id",user.getUser_id()+"");
                         requestContext.setSendZuulResponse(true);
