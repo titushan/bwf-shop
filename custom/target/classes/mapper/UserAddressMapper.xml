@@ -18,7 +18,8 @@
             uaddr_label,
             createtime,
             updatetime,
-            uaddr_user_id
+            uaddr_user_id,
+            uaddr_isdefault
         ) values (
             #{userAddress.uaddr_name},
             #{userAddress.uaddr_phone},
@@ -29,7 +30,8 @@
             #{userAddress.uaddr_label},
             #{userAddress.createtime},
             #{userAddress.updatetime},
-            #{userAddress.uaddr_user_id}
+            #{userAddress.uaddr_user_id},
+            #{userAddress.uaddr_isdefault}
         )
     </insert>
 
@@ -43,7 +45,8 @@
                 uaddr_district = #{userAddress.uaddr_district},
                 uaddr_address = #{userAddress.uaddr_address},
                 uaddr_label = #{userAddress.uaddr_label},
-                updatetime = #{userAddress.updatetime}
+                updatetime = #{userAddress.updatetime},
+                uaddr_isdefault = #{userAddress.uaddr_isdefault}
             where
                 uaddr_id = #{userAddress.uaddr_id}
     </update>
