@@ -1,11 +1,12 @@
 package com.bwf.shop.order.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * 订单收货信息
  * */
-public class OrderAddress {
+public class OrderAddress implements Serializable {
 
     private Integer id;         // 收货信息id
     private String orderNo;     // 关联的订单编号

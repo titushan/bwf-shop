@@ -38,12 +38,14 @@ public class UserAddressController {
 
         // 设置 收货信息的 所属 用户编号
         userAddress.setUaddr_user_id( user_id );
-
+        userAddress.setCreatetime(new Date(System.currentTimeMillis()));
+        userAddress.setUpdatetime(new Date(System.currentTimeMillis()));
         // 将 收货信息 添加到数据库
         boolean bo = userAddressService.addUserAddress(userAddress);
         Map<String,Object> result = new HashMap<>();
         if(bo){
             result.put("httpstatus","success");
+            result.put("data",userAddress);
             result.put("httpcode",200);
         }else{
             result.put("httpstatus","error");
@@ -63,6 +65,7 @@ public class UserAddressController {
         Map<String,Object> result = new HashMap<>();
         if(bo){
             result.put("httpstatus","success");
+            result.put("data",userAddress);
             result.put("httpcode",200);
         }else{
             result.put("httpstatus","error");

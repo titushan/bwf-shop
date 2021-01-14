@@ -1,11 +1,14 @@
 package com.bwf.shop.order.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 订单
  * */
-public class Order {
+public class Order implements Serializable {
 
     private Integer id;                 // 订单id
     private Integer order_user_id;      // 所属用户编号
@@ -23,8 +26,27 @@ public class Order {
     private String order_remark;        // 订单备注
     private Date createtime;            // 订单的创建时间
     private Date updatetime;            // 最后更新时间
+    private OrderAddress orderAddress;
+    private List<OrderDetail> orderDetailList = new ArrayList<>();
 
     // getters and setters
+
+    public OrderAddress getOrderAddress() {
+        return orderAddress;
+    }
+
+    public void setOrderAddress(OrderAddress orderAddress) {
+        this.orderAddress = orderAddress;
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
     public Integer getId() {
         return id;
     }

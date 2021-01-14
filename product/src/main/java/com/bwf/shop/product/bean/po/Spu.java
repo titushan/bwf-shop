@@ -46,10 +46,14 @@ public class Spu implements Serializable {
             attrValue.setCreatetime(vo.getValue_createtime());
             attrValue.setUpdatetime(vo.getValue_updatetime());
             attrValue.setValue_images(JSON.parseArray( vo.getSpu_attr_imgs() , String.class ));
+
             flag = true;
             for( AttrKey ak : getAttrKeyList() ){
-                if( ak.getKey_id() == vo.getKey_id() ){
+                System.out.println( " ====> key_id = " + ak.getKey_id() + " == " + vo.getKey_id() );
+                System.out.println( " ====> equals = " + ( ak.getKey_id().equals( vo.getKey_id() ) ) );
+                if( ak.getKey_id().equals( vo.getKey_id() ) ){
                     ak.getAttrValueList().add(attrValue);
+                    attrValue.setKey_id( ak.getKey_id() );
                     flag = false;
                     break;
                 }
@@ -63,6 +67,7 @@ public class Spu implements Serializable {
                 attrKey.setCreatetime(vo.getKey_createtime());
                 attrKey.setUpdatetime(vo.getKey_updatetime());
                 attrKey.getAttrValueList().add(attrValue);
+                attrValue.setKey_id( attrKey.getKey_id() );
                 getAttrKeyList().add(attrKey);
             }
         }

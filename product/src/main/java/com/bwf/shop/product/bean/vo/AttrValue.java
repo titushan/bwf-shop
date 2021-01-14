@@ -16,6 +16,15 @@ public class AttrValue implements Serializable {
 
     private List<String> value_images;
 
+    private Integer key_id;
+
+    public Integer getKey_id() {
+        return key_id;
+    }
+
+    public void setKey_id(Integer key_id) {
+        this.key_id = key_id;
+    }
 
     public Integer getValue_id() {
         return value_id;

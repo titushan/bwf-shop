@@ -16,7 +16,7 @@ public interface IOrderService {
      * @param bo 添加订单业务模型对象
      * @return 添加订单是否成功
      * */
-    boolean addOrder(OrderAddBo bo);
+    boolean addOrder(Order bo);
 
     /**
      * 修改订单
@@ -31,4 +31,6 @@ public interface IOrderService {
      * @return 该用户的订单列表
      * */
     List<Order> getOrderListByUserId(Integer user_id );
+
+    Order getOrderById( Integer id );
 }

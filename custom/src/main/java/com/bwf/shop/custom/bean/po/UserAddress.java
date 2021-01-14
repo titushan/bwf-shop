@@ -19,8 +19,17 @@ public class UserAddress implements Serializable {
     private Date createtime;        // 创建时间
     private Date updatetime;        // 修改时间
     private Integer uaddr_user_id;  // 所属客户编号
+    private Byte uaddr_isdefault;
 
     // getters and setters
+
+    public Byte getUaddr_isdefault() {
+        return uaddr_isdefault;
+    }
+
+    public void setUaddr_isdefault(Byte uaddr_isdefault) {
+        this.uaddr_isdefault = uaddr_isdefault;
+    }
 
     public Integer getUaddr_id() {
         return uaddr_id;

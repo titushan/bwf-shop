@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bwf.shop.order.mapper.OrderMapper">
-
+    <cache type="com.bwf.shop.order.redis.RedisCache"/>
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
         insert into `order`
         (
@@ -89,17 +89,40 @@
         delete from `order` where id = #{id} and order_status = 0
     </delete>
 
-    <select id="getOrderById" resultType="com.bwf.shop.order.bean.po.Order">
+    <select id="getOrderById" resultMap="Order">
         select * from `order` where id = #{id}
     </select>
 
 
-    <select id="getOrderByNo" resultType="com.bwf.shop.order.bean.po.Order">
+    <select id="getOrderByNo" resultMap="Order">
         select * from `order` where order_no = #{order_no}
     </select>
 
-    <select id="getOrderListByUserId" resultType="com.bwf.shop.order.bean.po.Order">
+    <select id="getOrderListByUserId" resultMap="Order">
         select * from `order` where order_user_id = #{user_id}
     </select>
+
+    <resultMap id="Order" type="com.bwf.shop.order.bean.po.Order">
+        <id column="id" property="id"/>
+        <result property="order_user_id" column="order_user_id"/>
+        <result property="order_no" column="order_no"/>
+        <result property="order_status" column="order_status"/>
+        <result property="order_spuamount" column="order_spuamount"/>
+        <result property="order_expressfee" column="order_expressfee"/>
+        <result property="order_totalamount" column="order_totalamount"/>
+        <result property="order_discountamount" column="order_discountamount"/>
+        <result property="order_payamount" column="order_payamount"/>
+        <result property="order_paymode" column="order_paymode"/>
+        <result property="order_payplatform" column="order_payplatform"/>
+        <result property="order_ipaddress" column="order_ipaddress"/>
+        <result property="order_paymentno" column="order_paymentno"/>
+        <result property="order_remark" column="order_remark"/>
+        <result property="createtime" column="createtime"/>
+        <result property="updatetime" column="updatetime"/>
+        <association property="orderAddress" javaType="com.bwf.shop.order.bean.po.OrderAddress"
+            column="order_no" select="com.bwf.shop.order.mapper.OrderAddressMapper.getOrderAddressByOrderNo"/>
+        <collection property="orderDetailList" ofType="com.bwf.shop.order.bean.po.OrderDetail"
+            column="id" select="com.bwf.shop.order.mapper.OrderDetailMapper.getOrderDetailListByOrderId"/>
+    </resultMap>
 
 </mapper>

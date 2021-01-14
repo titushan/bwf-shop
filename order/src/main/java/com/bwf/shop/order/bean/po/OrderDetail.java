@@ -1,11 +1,12 @@
 package com.bwf.shop.order.bean.po;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * 订单详情
  * */
-public class OrderDetail {
+public class OrderDetail implements Serializable {
 
     private Integer id;                 // 订单详情id
     private String odtails_name;        // 商品名称
