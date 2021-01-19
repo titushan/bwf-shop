@@ -12,6 +12,7 @@
         (
             cart_userid,
             cart_spuid,
+            cart_skuid,
             cart_name,
             cart_thumburl,
             cart_price,
@@ -23,6 +24,7 @@
         ) values (
             #{cart.cart_userid},
             #{cart.cart_spuid},
+            #{cart.cart_skuid},
             #{cart.cart_name},
             #{cart.cart_thumburl},
             #{cart.cart_price},

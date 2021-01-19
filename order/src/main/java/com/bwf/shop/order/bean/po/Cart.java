@@ -12,6 +12,7 @@ public class Cart implements Serializable {
     private Integer cart_userid;    // 所属用户编号
     private Integer cart_spuid;     // 商品编号
     private String cart_name;       // 商品名称
+    private Integer cart_skuid;
     private String cart_sku;
     private String cart_thumburl;   // 商品封面图片
     private Double cart_price;      // 商品购买单价
@@ -22,6 +23,14 @@ public class Cart implements Serializable {
 
 
     // getters and setters
+
+    public Integer getCart_skuid() {
+        return cart_skuid;
+    }
+
+    public void setCart_skuid(Integer cart_skuid) {
+        this.cart_skuid = cart_skuid;
+    }
 
     public Integer getCar_id() {
         return car_id;
