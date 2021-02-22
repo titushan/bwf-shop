@@ -4,18 +4,23 @@ import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+@Component
 public class RedisCache implements Cache {
 
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private final String id; // 缓存实例id
     private RedisTemplate redisTemplate;
     private static final long EXPIRE_TIME_IN_MINUTES = 30; // redis过期时间
-
+    public RedisCache() {
+        this.id = UUID.randomUUID().toString();
+    }
     /**
      * 构造器
      * @param id 缓存Id

@@ -40,6 +40,7 @@ public class CartService implements ICartService {
             old.setCart_count( old.getCart_count() + cart.getCart_count() );
             // 将 原始订购数据 同步更新到数据库
             a = cartMapper.updateCart( old );
+            cart.setCar_id( old.getCar_id() );
         }else{
             // 该用户还没有购买过该商品编号、商品规格的产品  添加一条cart购物车记录
             a = cartMapper.addCart( cart );

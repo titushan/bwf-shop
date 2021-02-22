@@ -28,6 +28,7 @@ public class MessageController {
             Https.send( user_phone , "验证码："+valid+"。" );
             redisCache.putObject( user_phone , valid );
             result.put("httpstatus","success");
+            result.put("data",valid);
             result.put("httpcode",200);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

@@ -22,7 +22,7 @@
             <if test="bo.spu_status != null">
                 and a.spu_status = #{bo.spu_status}
             </if>
-            <if test="bo.spu_brand_id != null">
+            <if test="bo.spu_brand_id != null and bo.spu_brand_id.length > 0">
                 and a.spu_brand_id = #{bo.spu_brand_id}
             </if>
             <if test="bo.cate_id != null">
@@ -62,7 +62,7 @@
             <if test="bo.spu_status != null">
                 and a.spu_status = #{bo.spu_status}
             </if>
-            <if test="bo.spu_brand_id != null">
+            <if test="bo.spu_brand_id != null and bo.spu_brand_id.length > 0">
                 and a.spu_brand_id = #{bo.spu_brand_id}
             </if>
             <if test="bo.cate_id != null">

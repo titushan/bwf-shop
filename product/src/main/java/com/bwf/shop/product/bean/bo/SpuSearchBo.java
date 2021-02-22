@@ -14,7 +14,7 @@ public class SpuSearchBo {
     private String spu_name;    // 商品名称
     private String spu_title;   // 商品标题
     private Byte spu_status;    // 商品状态
-    private Integer spu_brand_id;   // 品牌编号
+    private String spu_brand_id;   // 品牌编号
     private Integer cate_id;    // 分类编号
     private List<Integer> spuAttrValueList = new ArrayList<>(); // 属性值列表
     private String valueList;   // 属性值列表 17471,17472
@@ -29,9 +29,11 @@ public class SpuSearchBo {
 
     public void setValueList(String valueList) {
         this.valueList = valueList;
-        String[] arr = valueList.split(",");
-        for( String v : arr ){
-            spuAttrValueList.add( Integer.parseInt(v) );
+        if( this.valueList != null && !( this.valueList.isEmpty() ) ) {
+            String[] arr = valueList.split(",");
+            for (String v : arr) {
+                spuAttrValueList.add(Integer.parseInt(v));
+            }
         }
     }
 
@@ -83,11 +85,11 @@ public class SpuSearchBo {
         this.spu_status = spu_status;
     }
 
-    public Integer getSpu_brand_id() {
+    public String getSpu_brand_id() {
         return spu_brand_id;
     }
 
-    public void setSpu_brand_id(Integer spu_brand_id) {
+    public void setSpu_brand_id(String spu_brand_id) {
         this.spu_brand_id = spu_brand_id;
     }
 

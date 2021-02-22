@@ -34,6 +34,21 @@
         order by a.cate_sort,a.cate_id
     </select>
 
+    <select id="getCategoryListBySpuList" resultType="com.bwf.shop.product.bean.po.Category">
+        select distinct a.*
+        from
+            `category` a
+            inner join `cate_spu` b on a.cate_id = b.cate_id
+        <where>
+            <if test="spuList != null and spuList.size > 0">
+                b.spu_id in
+                <foreach collection="spuList" item="spu" open="(-1," close=")" separator=",">
+                    #{spu.spu_id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
     <resultMap id="Category" type="com.bwf.shop.product.bean.po.Category">
         <id column="cate_id" property="cate_id"/>
         <result column="cate_name" property="cate_name"/>

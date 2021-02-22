@@ -22,6 +22,11 @@ public class SpuService implements ISpuService {
     }
 
     @Override
+    public List<Spu> getPageableSpuListBySearchBo(SpuSearchBo bo) {
+        return spuMapper.getSpuListBySearchBo(bo);
+    }
+
+    @Override
     public Long getSpuListSizeBySearchBo(SpuSearchBo bo) {
         return spuMapper.getSpuListSizeBySearchBo(bo);
     }

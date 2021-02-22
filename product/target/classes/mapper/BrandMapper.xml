@@ -19,4 +19,19 @@
         order by a.sortno,a.brand_id
     </select>
 
+    <select id="getBrandListBySpuList" resultType="com.bwf.shop.product.bean.po.Brand">
+        select distinct a.*
+        from
+            `brand` a
+            inner join `spu` b on a.brand_id = b.spu_brand_id
+        <where>
+            <if test="spuList != null and spuList.size > 0">
+                b.spu_id in
+                <foreach collection="spuList" item="spu" open="(-1," close=")" separator=",">
+                    #{spu.spu_id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
 </mapper>

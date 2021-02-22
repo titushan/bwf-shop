@@ -1,6 +1,7 @@
 package com.bwf.shop.product.service.impl;
 
 import com.bwf.shop.product.bean.po.Brand;
+import com.bwf.shop.product.bean.po.Spu;
 import com.bwf.shop.product.mapper.BrandMapper;
 import com.bwf.shop.product.service.IBrandService;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class BrandService implements IBrandService {
     @Override
     public List<Brand> getBrandListByCategoryId(Integer cate_id) {
         return brandMapper.getBrandListByCategoryId(cate_id);
+    }
+
+    @Override
+    public List<Brand> getBrandListBySpuList(List<Spu> spuList) {
+        return brandMapper.getBrandListBySpuList(spuList);
     }
 }

@@ -1,6 +1,7 @@
 package com.bwf.shop.custom.controller;
 
 import com.bwf.shop.custom.bean.po.User;
+import com.bwf.shop.custom.redis.RedisCache;
 import com.bwf.shop.custom.service.IUserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +19,31 @@ public class UserController {
     @Resource
     private IUserService userService;
 
-    @RequestMapping( value = "/regist" , method = RequestMethod.POST )
-    public Object regist( User user ){
-        Map<String,Object> result = new HashMap<>();
-        if( userService.regist(user) ){
-            result.put("httpstatus","success");
-            result.put("httpcode",200);
-        }else{
+    @Resource
+    private RedisCache redisCache;
 
+    @RequestMapping( value = "/regist" , method = RequestMethod.POST )
+    public Object regist( User user , String valid ){
+
+        Map<String,Object> result = new HashMap<>();
+        if( valid != null
+                && redisCache.getObject(user.getUser_phone()) != null
+                && valid.equals( redisCache.getObject(user.getUser_phone()).toString() ) ){
+            if( userService.regist(user) ){
+                result.put("httpstatus","success");
+                result.put("httpcode",200);
+            }else{
+                result.put("httpstatus","error");
+                result.put("message","请账户已经存在！");
+                result.put("httpcode",401);
+            }
+        }else{
             result.put("httpstatus","error");
-            result.put("httpcode",401);
+            result.put("message","短信验证错误！");
+            result.put("httpcode",402);
         }
+
+
 
         return result;
     }

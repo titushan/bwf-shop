@@ -71,7 +71,7 @@ public class OrderController {
         Map<String,Object> result = new HashMap<>();
         if( bo ){
             result.put("httpstatus","success");
-            result.put("data",order);
+            result.put("data",orderService.getOrderById(order.getId()));
             result.put("httpcode",200);
         }else{
             result.put("httpstatus","error");

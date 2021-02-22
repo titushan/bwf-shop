@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SpuAttrValueMapper {
 
-    List<SpuAttrValue> getSpuAttrValueListByKeyId( @Param("key_id") Integer key_id );
+    List<SpuAttrValue> getSpuAttrValueListByKeyId( @Param("key_id") String key_id );
 
 }

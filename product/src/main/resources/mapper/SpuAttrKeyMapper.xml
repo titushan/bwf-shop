@@ -30,7 +30,29 @@
         from `spu_attr_value_spus` a
             inner join `spu_attr_value` b on a.spu_attr_value_id = b.id
             inner join `spu_attr_key` c on b.value_attr_key_id = c.key_id
-        where a.spu_id = #{spu_id} and c.key_issku = 1
+        where a.spu_id = #{spu_id}
+    </select>
+    <select id="getSpuAttrKeyListBySpuList" resultMap="SpuAttrVo">
+        select
+            a.id,a.spu_id,
+            c.key_id,c.key_name,c.key_issku,c.key_ishigh,
+            c.createtime as key_createtime,c.updatetime as key_updatetime,
+            b.id as value_id,b.value_name,
+            b.createtime as value_createtime,
+            b.updatetime as value_updatetime,
+            a.spu_attr_imgs
+        from `spu_attr_value_spus` a
+            inner join `spu_attr_value` b on a.spu_attr_value_id = b.id
+            inner join `spu_attr_key` c on b.value_attr_key_id = c.key_id
+        <where>
+            c.key_issku = 0
+            <if test="spuList != null and spuList.size > 0">
+                and a.spu_id in
+                <foreach collection="spuList" item="spu" open="(-1," close=")" separator=",">
+                    #{spu.spu_id}
+                </foreach>
+            </if>
+        </where>
     </select>
     <resultMap id="SpuAttrKey" type="com.bwf.shop.product.bean.po.SpuAttrKey">
         <id property="key_id" column="key_id" />
