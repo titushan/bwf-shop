@@ -1,0 +1,5 @@
+com\bwf\shop\zuul\ZuulApplication.class
+com\bwf\shop\zuul\bean\po\User.class
+com\bwf\shop\zuul\Filter\LoginFilter.class
+com\bwf\shop\zuul\config\CrossConfig.class
+com\bwf\shop\zuul\mapper\UserMapper.class
